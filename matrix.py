@@ -16,22 +16,43 @@ def make_translate( x, y, z ):
     for r in range( len( m[0] ) ):
         for c in range( len(m) ):
             if r == c:
-                matrix[c][r] = h[num]
+                m[c][r] = 1
+            elif c == (len(m) - 1):
+                m[c][r] = h[num]
                 num += 1
             else:
-                matrix[c][r] = 0
+                m[c][r] = 0
+    return m
 
 def make_scale( x, y, z ):
-    pass
+    m = new_matrix()
+    h = [x, y, z, 1]
+    num = 0
+    for r in range( len( m[0] ) ):
+        for c in range( len(m) ):
+            if r == c:
+                m[c][r] = h[num]
+                num += 1
+            else:
+                m[c][r] = 0
+    return m
+
 
 def make_rotX( theta ):
-    pass
+    theta = math.degrees(theta)
+    m = [[1,0,0,0],[0,math.cos(theta), -1 * math.sin(theta), 0],[0,math.sin(theta), math.cos(theta), 0],[0,0,0,1]]
+    return m
+
 
 def make_rotY( theta ):
-    pass
+    theta = math.degrees(theta)
+    m = [[math.cos(theta),0,math.sin(theta),0],[0,1, 0, 0],[-1 * math.sin(theta), 0, math.cos(theta), 0],[0,0,0,1]]
+    return m
 
 def make_rotZ( theta ):
-    pass
+    theta = math.degrees(theta)
+    m = [[math.cos(theta),-1 * math.sin(theta),0,0],[math.sin(theta), math.cos(theta), 0, 0],[0, 0, 1, 0],[0,0,0,1]]
+    return m
 
 #print the matrix such that it looks like
 #the template in the top comment
