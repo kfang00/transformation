@@ -1,6 +1,6 @@
 from display import *
 from draw import *
-from parser import *
+from parse import *
 from matrix import *
 
 screen = new_screen()

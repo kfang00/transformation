@@ -32,13 +32,44 @@ The file follows the following format:
 See the file script for an example of the file format
 """
 def parse_file( fname, points, transform, screen, color ):
-    points = []
     f = open(fname,'r')
     s = f.readlines()
     f.close()
+    #print(s)
     idx = 0
-    while idx < len(s)
+    while idx < len(s):
         s[idx]= s[idx].strip('\n')
         if (s[idx] == 'line'):
-
-        idx += 1
+            hold = s[idx + 1].split()
+            add_edge(points, int(hold[0]), int(hold[1]), int(hold[2]), int(hold[3]), int(hold[4]), int(hold[5]) )
+        elif (s[idx] == 'ident'):
+            transform = ident(transform)
+        elif (s[idx] == 'scale'):
+            hold = s[idx + 1].split()
+            sc = make_scale(int(hold[0]), int(hold[1]), int(hold[2]))
+            matrix_mult( sc, transform )
+        elif (s[idx] == 'translate'):
+            hold = s[idx + 1].split()
+            tr = make_translate(int(hold[0]), int(hold[1]), int(hold[2]))
+            matrix_mult( tr, transform )
+        elif (s[idx] == 'rotate'):
+            hold = s[idx + 1].split()
+            r = 0
+            if hold[0] == 'x':
+                r = make_rotX(int(hold[1]))
+            elif hold[0] == 'y':
+                r = make_rotY(int(hold[1]))
+            else:
+                r = make_rotZ(int(hold[1]))
+            matrix_mult(r, transform)
+        elif (s[idx] == 'apply'):
+            matrix_mult( transform, points )
+        elif (s[idx] == 'display'):
+            clear_screen(screen)
+            draw_lines(points, screen, color )
+            display(screen)
+        elif (s[idx] == 'save'):
+            clear_screen(screen)
+            draw_lines(points, screen, color )
+            save_extension(screen, s[idx + 1])
+        idx += 2
