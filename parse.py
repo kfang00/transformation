@@ -42,16 +42,19 @@ def parse_file( fname, points, transform, screen, color ):
         if (s[idx] == 'line'):
             hold = s[idx + 1].split()
             add_edge(points, int(hold[0]), int(hold[1]), int(hold[2]), int(hold[3]), int(hold[4]), int(hold[5]) )
-        elif (s[idx] == 'ident'):
-            transform = ident(transform)
+            idx += 1
         elif (s[idx] == 'scale'):
             hold = s[idx + 1].split()
             sc = make_scale(int(hold[0]), int(hold[1]), int(hold[2]))
             matrix_mult( sc, transform )
-        elif (s[idx] == 'translate'):
+            idx += 1
+        elif (s[idx] == 'ident'):
+            ident(transform)
+        elif (s[idx] == 'move'):
             hold = s[idx + 1].split()
             tr = make_translate(int(hold[0]), int(hold[1]), int(hold[2]))
             matrix_mult( tr, transform )
+            idx += 1
         elif (s[idx] == 'rotate'):
             hold = s[idx + 1].split()
             r = 0
@@ -72,4 +75,4 @@ def parse_file( fname, points, transform, screen, color ):
             clear_screen(screen)
             draw_lines(points, screen, color )
             save_extension(screen, s[idx + 1])
-        idx += 2
+        idx += 1

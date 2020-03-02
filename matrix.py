@@ -39,19 +39,19 @@ def make_scale( x, y, z ):
 
 
 def make_rotX( theta ):
-    theta = math.degrees(theta)
-    m = [[1,0,0,0],[0,math.cos(theta), -1 * math.sin(theta), 0],[0,math.sin(theta), math.cos(theta), 0],[0,0,0,1]]
+    theta = (theta * math.pi) / 180.0
+    m = [[1,0,0,0],[0,math.cos(theta), math.sin(theta), 0],[0,-1 * math.sin(theta), math.cos(theta), 0],[0,0,0,1]]
     return m
 
 
 def make_rotY( theta ):
-    theta = math.degrees(theta)
-    m = [[math.cos(theta),0,math.sin(theta),0],[0,1, 0, 0],[-1 * math.sin(theta), 0, math.cos(theta), 0],[0,0,0,1]]
+    theta = (theta * math.pi) / 180.0
+    m = [[math.cos(theta),0,-1 * math.sin(theta),0],[0,1, 0, 0],[math.sin(theta), 0, math.cos(theta), 0],[0,0,0,1]]
     return m
 
 def make_rotZ( theta ):
-    theta = math.degrees(theta)
-    m = [[math.cos(theta),-1 * math.sin(theta),0,0],[math.sin(theta), math.cos(theta), 0, 0],[0, 0, 1, 0],[0,0,0,1]]
+    theta = (theta * math.pi) / 180.0
+    m = [[math.cos(theta),math.sin(theta),0,0],[-1 * math.sin(theta), math.cos(theta), 0, 0],[0, 0, 1, 0],[0,0,0,1]]
     return m
 
 #print the matrix such that it looks like
